@@ -1,17 +1,17 @@
-version: '3'
-
 services:
+
   web:
     image: nginx
     expose:
-    - "80"
+      - "80"
     volumes:
-    - ./code:/usr/share/nginx/html
+      - ./code:/usr/share/nginx/html
     ports:
-    - 80:80
+      - "8080:80"
+
   mariadb:
     image: "mariadb:latest"
-    restart: always
+    restart: "always"
     volumes:
       - "./data:/var/lib/mysql/data"
       - "./logs:/var/lib/mysql/logs"
@@ -24,7 +24,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin
-    restart: always
+    restart: "always"
     ports:
       - "40001:80"
     environment:
@@ -34,7 +34,7 @@ services:
   wordpress:
     image: wordpress
     ports:
-      - "80:80"
+      - "8081:80"  # Changed to avoid conflict
     environment:
       - WORDPRESS_DB_HOST=mariadb
       - WORDPRESS_DB_NAME=heticdb
